@@ -1,0 +1,41 @@
+dn: cn=demouser1,ou=users,dc=ldap,dc=localhost,dc=localdomain
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: simpleSecurityObject
+objectClass: person
+objectClass: top
+cn: testuser1
+ou: users
+sn: User
+givenName: Demo1
+o: Organization A
+mail: demouser1@localhost
+uid: demouser1
+userPassword:: e1NIQX1XNnBoNU1tNVB6OEdnaVVMYlBnekczN21qOWc9
+
+dn: cn=demouser2,ou=users,dc=ldap,dc=localhost,dc=localdomain
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: simpleSecurityObject
+objectClass: person
+objectClass: top
+cn: testuser2
+ou: users
+sn: User
+givenName: Demo2
+o: Organization B
+mail: demouser2@localhost
+uid: demouser2
+userPassword:: e1NIQX1XNnBoNU1tNVB6OEdnaVVMYlBnekczN21qOWc9
+
+dn: cn=ldapadmin,ou=admins,dc=ldap,dc=localhost,dc=localdomain
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: simpleSecurityObject
+objectClass: person
+objectClass: top
+cn: ldapadmin
+ou: admins
+sn: Administrator
+uid: ldapadmin
+userPassword:: e1NIQX1XNnBoNU1tNVB6OEdnaVVMYlBnekczN21qOWc9

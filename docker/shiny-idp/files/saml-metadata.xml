@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<EntitiesDescriptor
+  xmlns="urn:oasis:names:tc:SAML:2.0:metadata"
+  xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+  xmlns:shibmd="urn:mace:shibboleth:metadata:1.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="urn:oasis:names:tc:SAML:2.0:metadata saml-2.0-os-xsd/saml-schema-metadata-2.0.xsd"
+  Name="Shiny Demo SAML Metadata" validUntil="2020-12-31T12:00:00" ID='ctf'>
+
+  <!-- Identity Provider -->
+
+  <EntityDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+    xmlns:shibmd="urn:mace:shibboleth:metadata:1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    entityID="https://idp.localhost.localdomain/idp/shibboleth" ID='idp'>
+
+    <Extensions xmlns:alg="urn:oasis:names:tc:SAML:metadata:algsupport">
+      <alg:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+      <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+    </Extensions>
+
+    <IDPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol" WantAuthnRequestsSigned="true">
+
+      <Extensions>
+        <shibmd:Scope regexp="false">localdomain</shibmd:Scope>
+      </Extensions>
+
+      <KeyDescriptor>
+        <ds:KeyInfo>
+          <ds:X509Data>
+            <ds:X509Certificate>MIIDkjCCAnoCCQCYAsXeiFCDcDANBgkqhkiG9w0BAQsFADCBijELMAkGA1UEBhMC
+VVMxCzAJBgNVBAgMAldBMRAwDgYDVQQHDAdPbHltcGlhMRswGQYDVQQKDBJDYXNj
+YWRpYSBBbmFseXRpY3MxHjAcBgNVBAMMFWxvY2FsaG9zdC5sb2NhbGRvbWFpbjEf
+MB0GCSqGSIb3DQEJARYQZG9ja2VyQGxvY2FsaG9zdDAeFw0xODA1MTgxNzA4Mjda
+Fw0zODA1MTMxNzA4MjdaMIGKMQswCQYDVQQGEwJVUzELMAkGA1UECAwCV0ExEDAO
+BgNVBAcMB09seW1waWExGzAZBgNVBAoMEkNhc2NhZGlhIEFuYWx5dGljczEeMBwG
+A1UEAwwVbG9jYWxob3N0LmxvY2FsZG9tYWluMR8wHQYJKoZIhvcNAQkBFhBkb2Nr
+ZXJAbG9jYWxob3N0MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoiIh
+ucGDxgBPI7bjn9ze/jh0eT8An4BmHObw/xjq5REcx0/hq8A9oDmUQacsjP0+KWAC
+rxc9JHdcL+TgZJGcrhkUdAhGkeEvgywP+UJh/BTAfBMMvHkWGxM0cZjpjfdzxEbn
+v/qanw8KKjlaOo7rf3ia8nUDfKgYGx+PlPylUvlvI1C0hkHbmlaxsdvCLIRQRYhZ
+cWyRb2b9+UXJ2zuGZJUXXjvbXGZ8Loftlzjv64WiM5RPytzL1pVoc0OWpWvt1hLI
+5VeG7GiPYhjf1kVxFSjv0S1w6lldBAkCoPQcSTrfHnVO3MvN0MdR69UWfgHmq1A7
+5ovxIQaGd3p5jBtXNwIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQBZgIlOr/utsLJ0
+WT6uVBTXyWlUYi3yhKkLk7B0QRuVycYG5KNYs9hiVkFDpCkiOeR7hhgUIZVSe8VN
+HF9l3zJdLQ0gXAe6fgkNhxdo9fB9/jYo5gu6H+p6b0T/9OrrrUKEHvBhYR7inus7
+/eLN3s9aWhzp8uAaBZ0UVCat944inzWMnT1nQhw3LVwfizJGcTKAdB8T50OKQhvo
+Y/Xtc7RBa8bSu/q9nZ2xvdDgvJsssaqkeaRDgo7tpgs71DU4LyS1ph9O+lhsAgt8
+KwTji7X9VFAIUuWbuQfJl2ZQ6uyW6pOcTquPiAR7OX2Fc+ZrfAYDdDiCwpf80Inp
+OfwsJYfW
+            </ds:X509Certificate>
+          </ds:X509Data>
+        </ds:KeyInfo>
+      </KeyDescriptor>
+
+      <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</NameIDFormat>
+      <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</NameIDFormat>
+
+      <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+        Location="https://localhost/idp/profile/SAML2/POST/SSO"/>
+      <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+        Location="https://localhost/idp/profile/SAML2/Redirect/SSO"/>
+
+    </IDPSSODescriptor>
+
+  </EntityDescriptor>
+
+  <!-- Service Provider -->
+
+  <EntityDescriptor ID="sp" entityID="https://sp.localhost.localdomain/shibboleth">
+
+    <Extensions xmlns:alg="urn:oasis:names:tc:SAML:metadata:algsupport">
+      <alg:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+      <alg:SigningMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+    </Extensions>
+
+    <SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol" WantAssertionsSigned="true">
+
+      <Extensions>
+        <idpdisc:DiscoveryResponse xmlns:idpdisc="urn:oasis:names:tc:SAML:profiles:SSO:idp-discovery-protocol"
+          Binding="urn:oasis:names:tc:SAML:profiles:SSO:idp-discovery-protocol"
+          Location="https://localhost/Shibboleth.sso/Login" index="1"/>
+      </Extensions>
+
+      <KeyDescriptor>
+
+        <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+          <ds:X509Data>
+            <ds:X509Certificate>MIIDkjCCAnoCCQDYf7lTcIsNOjANBgkqhkiG9w0BAQsFADCBijELMAkGA1UEBhMC
+VVMxCzAJBgNVBAgMAldBMRAwDgYDVQQHDAdPbHltcGlhMRswGQYDVQQKDBJDYXNj
+YWRpYSBBbmFseXRpY3MxHjAcBgNVBAMMFWxvY2FsaG9zdC5sb2NhbGRvbWFpbjEf
+MB0GCSqGSIb3DQEJARYQZG9ja2VyQGxvY2FsaG9zdDAeFw0xODA1MTgxNzA4MjZa
+Fw0zODA1MTMxNzA4MjZaMIGKMQswCQYDVQQGEwJVUzELMAkGA1UECAwCV0ExEDAO
+BgNVBAcMB09seW1waWExGzAZBgNVBAoMEkNhc2NhZGlhIEFuYWx5dGljczEeMBwG
+A1UEAwwVbG9jYWxob3N0LmxvY2FsZG9tYWluMR8wHQYJKoZIhvcNAQkBFhBkb2Nr
+ZXJAbG9jYWxob3N0MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArtRF
+xJlPBEkhHl0DK0wutb4/5mixaL0bcydYwvvJxYdzpBcpJusJTpUg+ljQbwAT9Ln3
+Usg3fipsskkVQRoPPihbmgszRpi5qO4BoQhB1zoLshsT3hiuZGSeiVhUTOPtiMI3
+flOcicsSXKlXzdnILYGiFa26UltSef/KIF/5yHCVPCLgKDwmXmXx1ps990o/3qqC
+17MCC+VxmMBuiyn+G22DFD5lHFxnppoc+EiWx53JdcvQwF2gfClGFEQjDEYuIRgr
+iwaWpHqIm7iGcyk6YZdRHR6AXSewOeTcZjPjVtpY0F6uHiGUXT7+Nj05QZG4f+7F
+zXcybcgmj/qg4ZsXZQIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQAdYMVfT6V9etxD
+ogZ1oUmUat/3HeN14LWPllRVc50CJ88gX4beiTkoiy+1t+3wRL0kb+w0NScGHiDt
+jqPJ+7WtlsBdEBgVsd1SrmUr7yG8iAYctbYnXZbrj5YPEx18ikfKy84chXxbotpn
+cqhx15PehLgfnktYRmsQnBXkvM8ziCnhjmbITdqVrarbYOqH0wKfj0YIehg1vum3
+xtryZVQ7cT28hFR9iraTTDnHqqTCFsQJhzomoVjLXyXY1q9EiGj5CWz+WzOKZxPg
+dj6O1AwhTPXcmPHYGO96SZpZaQaUWJwkp2L5qGYk3kaelHQJfsqQ8u/N31OtcUXs
+2LqrhpOb
+            </ds:X509Certificate>
+          </ds:X509Data>
+        </ds:KeyInfo>
+
+        <EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes256-cbc"/>
+        <EncryptionMethod Algorithm="http://www.w3.org/2009/xmlenc11#aes256-gcm"/>
+
+      </KeyDescriptor>
+
+      <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</NameIDFormat>
+      <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</NameIDFormat>
+
+      <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+        Location="https://localhost/Shibboleth.sso/SAML2/POST" index="1"/>
+
+    </SPSSODescriptor>
+
+  </EntityDescriptor>
+
+</EntitiesDescriptor>

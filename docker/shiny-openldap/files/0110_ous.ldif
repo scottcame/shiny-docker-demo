@@ -1,0 +1,7 @@
+dn: ou=users,dc=ldap,dc=localhost,dc=localdomain
+objectClass: organizationalUnit
+ou: users
+
+dn: ou=admins,dc=ldap,dc=localhost,dc=localdomain
+objectClass: organizationalUnit
+ou: admins

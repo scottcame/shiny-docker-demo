@@ -1,0 +1,107 @@
+
+#if ($authenticationErrorContext && $authenticationErrorContext.getClassifiedErrors().size() > 0 && $authenticationErrorContext.getClassifiedErrors().iterator().next() != "ReselectFlow")
+    ## This handles errors that are classified by the message maps in the authentication config.
+    #set ($eventId = $authenticationErrorContext.getClassifiedErrors().iterator().next())
+    #set ($eventKey = $springMacroRequestContext.getMessage("$eventId", "login"))
+    #set ($message = $springMacroRequestContext.getMessage("${eventKey}.message", "Login Failure: $eventId"))
+#elseif ($authenticationErrorContext && $authenticationErrorContext.getExceptions().size() > 0)
+    ## This handles login exceptions that are left unclassified.
+    #set ($loginException = $authenticationErrorContext.getExceptions().get(0))
+    #if ($loginException.getMessage())
+        #set ($message = "Login Failure: $loginException.getMessage()")
+    #else
+    	#set ($message = $loginException.toString())
+    #end
+#end
+
+<!doctype html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+
+    <!-- We inline the css here so that we don't have to deploy additional files into the Shib IDP app -->
+
+    <style>
+
+    body {
+      font-family: Georgia, Times, serif;
+    }
+
+    .logo {
+      max-height: 80px;
+      padding-left: 5px;
+    }
+
+    .title-text {
+      color: #093c71;
+      padding-left: 25px;
+      text-transform: uppercase;
+      font-size: 130%;
+    }
+
+    .login-container {
+      margin-top: 100px;
+    }
+
+    .login-controls {
+      background-color: #fff;
+      padding: 20px;
+    }
+
+    .content {
+      background-color: #efefef;
+      padding: 15px;
+      width: 60%;
+    }
+
+    .forgot-link {
+      margin-top: 10px;
+    }
+
+    .error {
+      color: #D8000C;
+      padding-bottom: 5px;
+    }
+
+    </style>
+
+  </head>
+
+  <body>
+
+    <div class="container login-container">
+      <div class="row">
+        <div class="col-xs-8 content">
+          <span class="title-text">Shiny Demo SAML Login</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-8 content">
+          <div class="login-controls">
+            <form action="$flowExecutionUrl" method="post">
+    					<div class="form-group">
+    						<label for="lg_username" class="sr-only">Username</label>
+    						<input type="text" class="form-control" id="username" name="j_username" placeholder="username">
+    					</div>
+    					<div class="form-group">
+    						<label for="lg_password" class="sr-only">Password</label>
+    						<input type="password" class="form-control" id="password" name="j_password" placeholder="password">
+    					</div>
+              #if ($message)
+                <div class="error">$encoder.encodeForHTML($message)</div>
+              #end
+              <button type="submit" class="btn btn-primary btn-block" name="_eventId_proceed">Login</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  </body>
+
+  </html>

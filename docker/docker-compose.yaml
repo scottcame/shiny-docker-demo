@@ -1,0 +1,55 @@
+# compose file that defines services established as docker daemon startup containers
+# run with:  docker-compose up -d
+
+version: "3"
+
+networks:
+  shiny-demo:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+       - subnet: 172.22.0.0/16
+
+services:
+  shiny-openldap:
+    image: scottcame/shiny-openldap
+    container_name: shiny-openldap
+    networks:
+      - "shiny-demo"
+    # remove ports directive in production, to avoid exposure of the ldap directory to the outside
+    ports:
+      - "1389:389"
+    env_file:
+      - ./openldap-password.env
+    environment:
+      - SLAPD_DOMAIN=ldap.localhost.localdomain
+  shiny-idp:
+    image: scottcame/shiny-idp
+    container_name: shiny-idp
+    networks:
+      - "shiny-demo"
+    depends_on:
+      - shiny-openldap
+  shiny-apache-shib-sp:
+    image: scottcame/shiny-apache-shib-sp
+    container_name: shiny-apache-shib-sp
+    networks:
+      - "shiny-demo"
+    ports:
+      - "80:80"
+      - "443:443"
+  shiny:
+    image: scottcame/shiny
+    container_name: shiny
+    networks:
+      - "shiny-demo"
+    ports:
+      - "3838:3838"
+  demo-mariadb:
+    image: scottcame/demo-mariadb
+    container_name: demo-mariadb
+    networks:
+      - "shiny-demo"
+    ports:
+      - "13306:3306"

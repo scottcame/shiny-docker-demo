@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resolver:AttributeResolver
+        xmlns:resolver="urn:mace:shibboleth:2.0:resolver"
+        xmlns:pc="urn:mace:shibboleth:2.0:resolver:pc"
+        xmlns:ad="urn:mace:shibboleth:2.0:resolver:ad"
+        xmlns:dc="urn:mace:shibboleth:2.0:resolver:dc"
+        xmlns:enc="urn:mace:shibboleth:2.0:attribute:encoder"
+        xmlns:sec="urn:mace:shibboleth:2.0:security"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="urn:mace:shibboleth:2.0:resolver http://shibboleth.net/schema/idp/shibboleth-attribute-resolver.xsd
+                            urn:mace:shibboleth:2.0:resolver:pc http://shibboleth.net/schema/idp/shibboleth-attribute-resolver-pc.xsd
+                            urn:mace:shibboleth:2.0:resolver:ad http://shibboleth.net/schema/idp/shibboleth-attribute-resolver-ad.xsd
+                            urn:mace:shibboleth:2.0:resolver:dc http://shibboleth.net/schema/idp/shibboleth-attribute-resolver-dc.xsd
+                            urn:mace:shibboleth:2.0:attribute:encoder http://shibboleth.net/schema/idp/shibboleth-attribute-encoder.xsd
+                            urn:mace:shibboleth:2.0:security http://shibboleth.net/schema/idp/shibboleth-security.xsd">
+
+	<resolver:AttributeDefinition xsi:type="ad:Simple" id="sn" sourceAttributeID="sn">
+		<resolver:Dependency ref="ldap-resolver" />
+		<resolver:AttributeEncoder xsi:type="enc:SAML2String" name="sn" nameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+	</resolver:AttributeDefinition>
+
+	<resolver:AttributeDefinition xsi:type="ad:Simple" id="givenName" sourceAttributeID="givenName">
+		<resolver:Dependency ref="ldap-resolver" />
+		<resolver:AttributeEncoder xsi:type="enc:SAML2String" name="givenName" nameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+	</resolver:AttributeDefinition>
+
+  <resolver:AttributeDefinition xsi:type="ad:Simple" id="o" sourceAttributeID="o">
+		<resolver:Dependency ref="ldap-resolver" />
+		<resolver:AttributeEncoder xsi:type="enc:SAML2String" name="o" nameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+	</resolver:AttributeDefinition>
+
+  <resolver:AttributeDefinition xsi:type="ad:Simple" id="mail" sourceAttributeID="mail">
+		<resolver:Dependency ref="ldap-resolver" />
+		<resolver:AttributeEncoder xsi:type="enc:SAML2String" name="mail" nameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+	</resolver:AttributeDefinition>
+
+	<resolver:AttributeDefinition xsi:type="ad:Script" id="uniqueIdentifier">
+		<resolver:Dependency ref="ldap-resolver" />
+		<resolver:AttributeEncoder xsi:type="enc:SAML2String" name="uniqueIdentifier" nameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+		<ad:Script><![CDATA[
+	  uniqueIdentifier.addValue("LOCALDOMAIN:IDP:USER:" + uid.getValues().get(0));
+	  ]]></ad:Script>
+	</resolver:AttributeDefinition>
+
+  <!-- see https://wiki.shibboleth.net/confluence/display/IDP30/LDAPConnector -->
+
+	<resolver:DataConnector
+    id="ldap-resolver"
+    xsi:type="dc:LDAPDirectory"
+		ldapURL="ldap://shiny-openldap:389"
+    baseDN="ou=users,dc=ldap,dc=localhost,dc=localdomain"
+    principal="cn=ldapadmin,ou=admins,dc=ldap,dc=localhost,dc=localdomain"
+    principalCredential="password">
+		<dc:FilterTemplate> <![CDATA[
+  (uid=$resolutionContext.principal) ]]>
+  		</dc:FilterTemplate>
+	</resolver:DataConnector>
+
+</resolver:AttributeResolver>

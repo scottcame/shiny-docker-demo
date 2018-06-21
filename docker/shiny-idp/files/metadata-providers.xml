@@ -1,0 +1,8 @@
+<MetadataProvider id="ShibbolethMetadata" xsi:type="ChainingMetadataProvider"
+  xmlns="urn:mace:shibboleth:2.0:metadata"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="urn:mace:shibboleth:2.0:metadata http://shibboleth.net/schema/idp/shibboleth-metadata.xsd">
+
+  <MetadataProvider id="idpmd" xsi:type="FilesystemMetadataProvider" metadataFile="/opt/shibboleth-idp/metadata/saml-metadata.xml"/>
+
+</MetadataProvider>

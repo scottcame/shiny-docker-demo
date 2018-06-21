@@ -1,0 +1,21 @@
+# A Minimal Docker Compose Example
+
+version: "3.5"
+
+networks:
+  n1:
+    name: n1
+
+services:
+  rstudio:
+    image: scottcame/tidyverse-mariadb
+    container_name: rstudio
+    networks:
+      - n1
+    ports:
+      - 8787:8787
+  mariadb:
+    image: demo-mariadb
+    container_name: demo-mariadb
+    networks:
+      - n1

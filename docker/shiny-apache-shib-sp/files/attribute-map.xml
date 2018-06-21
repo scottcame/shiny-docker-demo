@@ -1,0 +1,7 @@
+<Attributes xmlns="urn:mace:shibboleth:2.0:attribute-map" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Attribute name="sn" id="sn"/>
+  <Attribute name="givenName" id="givenName"/>
+  <Attribute name="uniqueIdentifier" id="uniqueIdentifier"/>
+  <Attribute name="mail" id="mail"/>
+  <Attribute name="o" id="o"/>
+</Attributes>
