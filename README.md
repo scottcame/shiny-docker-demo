@@ -1,6 +1,7 @@
-### shiny-microservice-demo
+### Shiny Microservices Demo
 
-This repository contains a demonstration of how to host a Shiny app in a microservices architecture (specifically, in Docker).
+This repository contains a demonstration of how to host a [Shiny](https://shiny.rstudio.com/) app in a microservices architecture (specifically, in
+  [Docker](https://www.docker.com/)).
 
 The `docker` directory contains Dockerfiles and contexts for a set of images necessary for the demonstration.  There are also
 compose files for a couple of demonstration scenarios.
