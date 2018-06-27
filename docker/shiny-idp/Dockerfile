@@ -1,4 +1,4 @@
-FROM shiny-tomcat8-proxied
+FROM scottcame/shiny-tomcat8-proxied
 
 LABEL maintainer="Scott Came (scottcame10@gmail.com)" \
   org.label-schema.description="Image with Shibboleth Identity Provider to support shiny demo" \
