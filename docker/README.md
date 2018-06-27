@@ -9,9 +9,6 @@ This directory contains the Dockerfiles and associated contexts for building ima
 * *shiny-tomcat8-proxied:* A [Tomcat J2EE Servlet Container](http://tomcat.apache.org/) used to host the Identity Provider (and is available for easily hosting any other Java Web Application)
 * *shiny:* A [Shiny Server](https://shiny.rstudio.com/) instance, tweaked to pass through http headers added by Shibboleth, that will host Shiny apps for the demonstration
 * *tidyverse-mariadb:* A derived image from the [Rocker project's](https://github.com/rocker-org/rocker) [tidyverse](https://hub.docker.com/r/rocker/tidyverse/) image, extended to include the [RMariaDB package](https://cran.r-project.org/web/packages/RMariaDB/index.html) and system libraries on which the package depends
-* *r-keras-cuda-base:* A base image that installs NVIDIA [CUDA](https://developer.nvidia.com/cuda-faq) and [cuDNN](https://developer.nvidia.com/cudnn) and R 3.5.0 with the [keras](https://keras.rstudio.com/) installed
-* *r-keras-cuda-default:* An extension of `r-keras-cuda-base` for use in environments without a tensorflow-supported GPU (e.g., runs keras/tensorflow on the machine's CPU)
-* *r-keras-cuda-gpu:* An extension of `r-keras-cuda-base` for use in environments with a tensorflow-supported GPU and a Docker runtime that exposes the GPU in-container
 
 Note that all of these images are maintained in Docker Hub on my [site](https://hub.docker.com/u/scottcame/).
 
