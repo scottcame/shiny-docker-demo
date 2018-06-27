@@ -1,13 +1,12 @@
 FROM nvidia/cuda:9.0-cudnn7-runtime-ubuntu16.04
 
 LABEL org.label-schema.license="GPL-2.0" \
-      org.label-schema.vcs-url="https://github.com/scottcame/shiny-microservice-demo/docker/r-keras-cuda" \
+      org.label-schema.vcs-url="https://github.com/scottcame/shiny-microservice-demo/docker/r-keras-cuda-base" \
       maintainer="Scott Came <scottcame10@gmail.com>"
 
 # Original R 3.5.0 Dockerfile from the Rocker project https://github.com/rocker-org/rocker-versioned
 
 #    Dockerfile that creates an image with R 3.5.0 and Keras
-#    Copyright (C) {year}  {fullname}
 #
 #    This program is free software; you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -147,11 +146,13 @@ RUN apt-get update \
   ## Clean up from R source install
   && cd / \
   && rm -rf /tmp/* \
-  && apt-get remove --purge -y $BUILDDEPS
+  && apt-get remove --purge -y $BUILDDEPS && apt autoremove -y
 
-RUN apt-get update && apt-get install -y libcurl4-openssl-dev libssl-dev libssh2-1-dev curl python-pip && \
+RUN apt-get update && apt-get install -y libcurl4-openssl-dev libssl-dev libssh2-1-dev curl python3-pip && \
+  pip3 install --upgrade pip && \
   pip install virtualenv && \
-  R -e 'install.packages("devtools")'
+  R -e 'install.packages("devtools")' && \
+  apt autoremove -y
 
 RUN R -e 'devtools::install_github("rstudio/keras")'
 
