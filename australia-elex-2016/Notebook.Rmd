@@ -50,9 +50,8 @@ nationalShpData <- nationalShpData %>%
     TRUE ~ Elect_div
   ))
 
-nationalShp <- nationalShp %>%
-  gSimplify(.01) %>%
-  SpatialPolygonsDataFrame(nationalShpData)
+nationalShp <- nationalShp %>% SpatialPolygonsDataFrame(nationalShpData) %>%
+  gSimplify(.01)
 
 results <- ElectionResults2016 %>% select(CED, LiberalCoalitionPct) %>% inner_join(nationalShpData, by=c('CED'='Elect_div'))
 
