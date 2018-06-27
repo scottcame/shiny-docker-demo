@@ -34,7 +34,11 @@ ElectionResults2016 <- suppressMessages(read_csv('https://query.data.world/s/rdt
 #ElectionResults2016Flat <- ElectionResults2016 %>% select(-Enrolment, -Turnout, -WinningParty) %>% gather('Party', 'Votes', -CED, -DivisionID, -State)
 Parties2016 <- suppressMessages(read_csv('https://query.data.world/s/u52ol56qmsvldxxkmrtzrno345pc4m'))
 
-nationalShp <- readOGR('/opt/data/Shapefiles/australia/election-districts/national/COM_ELB.TAB', layer="COM_ELB", stringsAsFactors = FALSE, verbose=FALSE)
+nationalShp <- tempfile()
+download.file('https://www.aec.gov.au/Electorates/gis/files/national-midmif-09052016.zip', nationalShp, quiet=TRUE)
+nationalShpDir <- tempdir()
+unzip(nationalShp, exdir = nationalShpDir)
+nationalShp <- readOGR(file.path(nationalShpDir, 'COM_ELB.TAB'), layer="COM_ELB", stringsAsFactors = FALSE, verbose=FALSE)
 
 nationalShpData <- nationalShp@data
 nationalShpData$id <- rownames(nationalShpData)
