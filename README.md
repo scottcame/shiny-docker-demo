@@ -1,4 +1,4 @@
-### Shiny Microservices Demo
+### Shiny Docker Demo
 
 This repository contains a demonstration of how to host a [Shiny](https://shiny.rstudio.com/) app in [Docker](https://www.docker.com/).
 
