@@ -3,19 +3,19 @@
 version: "3.5"
 
 networks:
-  n1:
-    name: n1
+  nw-useR:
+    name: nw-useR
 
 services:
   rstudio:
     image: scottcame/tidyverse-mariadb
     container_name: rstudio
     networks:
-      - n1
+      - nw-useR
     ports:
       - 8787:8787
   mariadb:
-    image: demo-mariadb
+    image: scottcame/demo-mariadb
     container_name: demo-mariadb
     networks:
-      - n1
+      - nw-useR
