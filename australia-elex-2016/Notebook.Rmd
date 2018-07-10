@@ -79,6 +79,6 @@ One might hypothesize that voters in electoral districts with higher unemploymen
 ```{r, echo=FALSE, fig.width=6}
 ggplot(ElectionResults2016, aes(x=UnemploymentRate, y=LiberalCoalitionPct)) + geom_point() + geom_smooth(method='lm') +
   scale_y_continuous(labels=percent) + scale_x_continuous(labels=percent) +
-  labs(title='Correlation of Unemployment Rate and Liberal Coalition Vote Share', subtitle='By Electoral District, 2016 Federal Election for House of Representatives',
+  labs(title='Correlation of Unemployment Rate and Liberal Coalition Vote Share', subtitle='By Electoral District, 2016 Federal Election for Australia House of Representatives',
        x='Unemployment Rate (2016 Census)', y='Liberal Coalition Vote Share')
 ```
